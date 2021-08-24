@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{ margin:0; padding:0; }
+        body{ height:500vh; }
+        body.before-load{ overflow-y:hidden; }
+        .sample-canvas{ width:100%; position:fixed; top:0; left:0; }
+    </style>
+</head>
+<body class="before-load">
+	<canvas class="sample-canvas" width="1920" height="1080"></canvas>
+
+    
+	<script>
+		const canvas = document.querySelector('.sample-canvas');
+		const context = canvas.getContext('2d'); //드로잉 조작 호출, 리턴 필수
+		
+
+		//이미지
+		let loadedImagesCount = 0;
+		let totalImagesCount = 960;
+		const videoImages = [];
+
+		let progress;
+		let currentFrame;
+
+		function loadImages() {
+			for (let i = 0; i < totalImagesCount; i++) {
+				let imgElem = new Image();
+				imgElem.src = `./video/002/IMG_${7027 + i}.JPG`;
+				videoImages.push(imgElem);
+
+				imgElem.addEventListener('load', function(){
+					loadedImagesCount++;
+					if( loadedImagesCount === totalImagesCount){
+						console.log('이미지 로드 완료');
+						init();
+					}
+				});
+			}
+		}
+
+		function init() {
+			document.body.classList.remove('before-load');
+			context.drawImage(videoImages[0], 0, 0); //첫번째 이미지 그려주고 시작
+
+			window.addEventListener('scroll', function () {
+				progress = pageYOffset / (document.body.offsetHeight - window.innerHeight);
+				if (progress < 0) progress = 0;
+				if (progress > 1) progress = 1;
+
+				currentFrame = Math.round((totalImagesCount - 1) * progress);
+				context.drawImage(videoImages[currentFrame], 0, 0); //drawImage(내가 그릴 드로잉 이미지 첫번째 인자, X좌표 , Y좌표) 메서드
+			});
+		}
+
+		window.addEventListener('load', init);
+		loadImages();
+	</script>
+</body>
+</html>

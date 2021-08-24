@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부드러운 스크롤 만들기</title>
+    <style>
+        body{ height:500vh; }
+        .box{ width:0; height:100px; position:fixed; top:10px; left:0; background-color:orange; }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        const box = document.querySelector('.box');
+        let acc = 0.1; 
+        let delayedYOffset = 0;//지연된 y 
+        let rafId;
+        let rafState; //request 상태
+
+		window.addEventListener('scroll', () => {
+            //box.style.width = `${window.pageYOffset}px`;
+            if(!refState){ //실행되려면
+                rafId = requestAnimationFrame(loop);
+                refState = true;
+            }
+
+        })
+
+        function loop(){
+            //box.style.width = `${window.pageYOffset}px`;
+            delayedYOffset = delayedYOffset + (pageYOffset - delayedYOffset) * acc;
+            // 속도 감속 시킬 때, 빠르다가 서서히 멈추게 부드러워보임
+            // 현재위치에서 목표지점(스크롤 값이니까)까지 이동할 때 =>  현재지점 + (목표지점 - 현재지점) * 0.1
+			box.style.width = `${delayedYOffset}px`;
+            rafId = requestAnimationFrame(loop); // 초당 60번을 목표로
+            console.log(loop);
+
+            if(Math.abs(pageYOffset - delayedYOffset) < 1){ //Math.abs(절대값 처리) > 거리판별(절대값 양수일 때)
+                cancelAnimationFrame(rafId);
+                refState = false;
+            }
+        }
+
+        loop();
+    </script>
+</body>
+</html>

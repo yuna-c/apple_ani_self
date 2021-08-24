@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{ background-color:#999; color:rgb(29,29,31); letter-spacing:-0.05em; overflow-x:hidden; }
+        body.before-load{ overflow:hidden; }
+        .loading{ position:fixed; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background-color:#fff; z-index:100; transition:0.5s; opacity:0; }
+        .loading-circle{ width:54px; height:54px; animation:loading-spin 3s infinite; }
+        .loading-circle circle{stroke:#000; stroke-width:4; stroke-dasharray:157; stroke-dashoffset:0; fill:transparent; animation:loading-circle-ani 1s infinite; }
+        .before-load .container{ display:none; }
+        .before-load .loading{ opacity:1; }
+
+        @keyframes loading-spin {
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes loading-circle-ani {
+            0% { stroke-dashoffset: 157; }
+            75% { stroke-dashoffset: -147; }
+            100% { stroke-dashoffset: -157; }
+        }
+    </style>
+</head>
+<body class="before-load">
+	<div class="loading">
+		<svg class="loading-circle" viewBox="0 0 54 54">
+			<circle cx="50%" cy="50%" r="25"></circle><!--center X , center Y, 반지름 -->
+		</svg>
+	</div>	
+    <script>
+        window.addEventListener('load', () =>{
+            document.body.classList.remove('before-load');
+            window.addEventListener('orientationchange', setLayout);
+    
+            document.querySelector('.loading').addEventListener('transitionend', (e) =>{
+                document.body.removeChild(e.currentTarget); //transitionEnd가 끝난 시점에
+            });
+        });
+    </script>
+</body>
+</html>
