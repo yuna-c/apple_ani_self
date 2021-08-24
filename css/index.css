@@ -58,7 +58,7 @@ a{ color:rgb(29, 29, 31); text-decoration:none; }
 
 #scroll-section-2 .b{ top:10%; left:40%; }
 #scroll-section-2 .c{ top:15%; left:45%; }
-.mid-message{ width:1080px; margin:0 auto 30vh; padding:0 1rem; font-size:2rem; font-weight:700; color:#888; }
+.mid-message{ margin:0 auto 30vh; padding:0 1rem; font-size:2rem; font-weight:700; color:#888; }
 .mid-message strong{ color:rgb(29,29,31); }
 .canvas-caption{ max-width:1080px; margin:-24rem auto 0; padding:0 1rem; font-size:1.2rem; color:#888; text-align:left; }
 
@@ -95,7 +95,7 @@ a{ color:rgb(29, 29, 31); text-decoration:none; }
     #scroll-section-2 .c{ left:55%; }
     
     .desc-message{ width:20%; font-size:1rem; }
-    .mid-message{ font-size:3.4vw; } /* 창 가변폰트 */
+    .mid-message{ font-size:3.4vw; width:1080px; } /* 창 가변폰트 */
     .canvas-caption{ margin-top:6rem; font-size:2rem; } /* 14*2 고정폰트 */
 }
 
